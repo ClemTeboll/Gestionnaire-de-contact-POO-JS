@@ -1,4 +1,4 @@
-import { Contact } from "./contact.js";
+import { Contact, ContactManager } from "./contact.js";
 
 let clement = new Contact("Llobet", "Clément", "clement.llobet@jasparo.fr");
 let erwan = new Contact("Morio", "Erwan", "erwan.morio@jasparo.fr");
