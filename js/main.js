@@ -5,11 +5,11 @@ let erwan = new Contact("Morio", "Erwan", "erwan.morio@jasparo.fr");
 let fabrice = new Contact("Tripault", "Fabrice", "fabrice.tripault@jasparo.fr");
 let olivia = new Contact("Wojtala", "Olivia", "olivia.wojtala@jasparo.fr");
 
-
 clement.displayInfo();
 erwan.displayInfo();
 fabrice.displayInfo();
 olivia.displayInfo();
+
 
 const checkName = (name) => {
     if (name.length <= 2) {
@@ -23,11 +23,10 @@ const checkSurname = (surname) => {
     }
 }
 
-const regex = /(?<name>.+)@(?<provider>\w+)\.(?<country>.+)/g;
+const regex = /(?<name>\w.+)@(?<provider>\w.+)\.(?<country>.+)/g;
 
 const checkEmail = (email) => {
     if (!regex.exec(email)) {
-        prompt("Votre email n'est pas correct. Merci de réessayer.")
+        prompt("Votre email n'est pas correct. Merci de réessayer.");
     }
-    
 }
