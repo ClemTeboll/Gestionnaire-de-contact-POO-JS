@@ -23,7 +23,7 @@ const checkSurname = (surname) => {
     }
 }
 
-const regex = /(?<name>\w.+)@(?<provider>\w.+)\.(?<country>.+)/g;
+const regex = /[\s\t\n](?<name>\w.+)@(?<provider>\w.+)\.(?<country>.+)/g;
 
 const checkEmail = (email) => {
     if (!regex.exec(email)) {
