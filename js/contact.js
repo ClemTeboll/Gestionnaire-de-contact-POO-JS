@@ -1,4 +1,4 @@
- class Contact {
+class Contact {
     constructor(name, surname, email) {
         this.name = name;
         this.surname = surname;
@@ -16,7 +16,7 @@ class ContactManager extends Contact {
 
     super()
 
-    displayMenu()  {
+    displayMenu() {
         prompt("Saisissez le numéro correspondant à votre choix : \n1 - Lister les contacts \n2 - Ajouter un nouveau contact \n3 - Modifier un contact existant \n4 - Supprimer un contact \n5 - Quitter le gestionnaire de contacts")
 
         switch (prompt) {
@@ -27,6 +27,7 @@ class ContactManager extends Contact {
                 addContact()
             break;
             case "3":
+                prompt('Quel contact souhaitez-vous modifier ?')
                 modifyContact()
             break;
             case "4":
@@ -36,7 +37,7 @@ class ContactManager extends Contact {
                 alert("Au revoir !")
             break;
             default:
-                "Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5";
+                prompt("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
                 displayMenu()
         }
     }
@@ -46,17 +47,24 @@ class ContactManager extends Contact {
         displayMenu()
     }
 
-    addContact() {
-        let newContact = new Contact(this.name, this.surname, this.email)
+    addContact(name, email) {
+        let newContact = new Contact(name, email)
         contactList.push(newContact);
     }
 
-    modifyContact() {
-
+    modifyContact(newName, newSurname, newEmail) {
+        for (i = 0; i < contactList.length; i++) {
+            if (contactList[i].name === prompt) {
+                contactList[i].name = newName;
+                contactList[i].surname = newSurname;
+                contactList[i].email = newEmail;
+                break;
+            }
+        }
     }
 
     deleteContact() {
-
+        
     }
 
 }
