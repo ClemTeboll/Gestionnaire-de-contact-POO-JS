@@ -14,7 +14,9 @@ const contactList = [];
 
 class ContactManager extends Contact {
 
-    super()
+    constructor(name, surname, email) {
+        super(name, surname, email);
+    }
 
     displayMenu() {
         prompt("Saisissez le numéro correspondant à votre choix : \n1 - Lister les contacts \n2 - Ajouter un nouveau contact \n3 - Modifier un contact existant \n4 - Supprimer un contact \n5 - Quitter le gestionnaire de contacts")
@@ -31,6 +33,7 @@ class ContactManager extends Contact {
                 modifyContact()
             break;
             case "4":
+                prompt('Quel contact souhaitez-vous supprimer ?')
                 deleteContact()
             break;
             case "5" :
@@ -47,26 +50,42 @@ class ContactManager extends Contact {
         displayMenu()
     }
 
-    addContact(name, email) {
-        let newContact = new Contact(name, email)
+    addContact() {
+
+        getPromptValues();
+
+        let name = getPromptValues();
+        console.log(name);
+
+        contactList.forEach((contact) => {
+            if (this.email === contact.email) {
+                alert("Cet email est déjà associé à un contact");           
+            }
+        })
+
+        let newContact = new Contact(name, surname, email)
         contactList.push(newContact);
     }
 
     modifyContact(newName, newSurname, newEmail) {
+
         for (i = 0; i < contactList.length; i++) {
-            if (contactList[i].name === prompt) {
-                contactList[i].name = newName;
-                contactList[i].surname = newSurname;
-                contactList[i].email = newEmail;
-                break;
+            if (contactList[i.name] === newName) {
+                
+                contactList[i.name] = newName;
+                newSurname == undefined ? null : contactList[i.surname] = newSurname;
+                newEmail == undefined ? null : contactList[i.email] = newEmail;
             }
         }
     }
 
-    deleteContact() {
-        
+    deleteContact(prompt) {
+        for (i = 0; i < contactList.length; i++) {
+            if (contactList[i.name] === prompt) {
+                contactList.splice([i - 1], 1)
+            } 
+        }
     }
-
 }
 
 export { Contact, ContactManager }
