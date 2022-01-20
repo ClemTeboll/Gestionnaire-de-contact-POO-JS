@@ -10,14 +10,6 @@ erwan.displayInfo();
 fabrice.displayInfo();
 olivia.displayInfo();
 
-
-// Apparition du prompt pour le nom. Demander à entrer le nom
-// Si la vérification du nom est OK, sauver le nom passer au prompt prénom
-// Demander la prénom
-// Si la vérification du prénom est OK, sauver le prénom passer au prompt email
-// Demander l'email
-// Vérifier l'email. Enregistrer les informations et les passer en paramètre
-
 export const getPromptValues = () => {
 
     let newContact = new Contact();
