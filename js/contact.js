@@ -2,9 +2,9 @@ import { getPromptValues } from './main.js'
 
 class Contact {
     constructor(name, surname, email) {
-        this.name = this.checkName(name);
-        this.surname = this.checkSurname(surname);
-        this.email = this.checkEmail(email);
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
     }
 
     displayInfo() {
@@ -38,7 +38,7 @@ class Contact {
     }
 }
 
-const contactList = [];
+export const contactList = [];
 
 class ContactManager {
     constructor(list) {
@@ -49,8 +49,8 @@ class ContactManager {
         let showPromptChoice = prompt("Saisissez le numéro correspondant à votre choix : \n1 - Lister les contacts \n2 - Ajouter un nouveau contact \n3 - Modifier un contact existant \n4 - Supprimer un contact \n5 - Quitter le gestionnaire de contacts")
 
         const showContactList = () => {
-            prompt(contactList);
-            // displayMenu()
+            alert(this.contactList);
+            return this.displayMenu()
         }
 
         const addContact = (name, surname, email) => {
@@ -59,7 +59,7 @@ class ContactManager {
                 let newContact = new Contact(name, surname, email)
                 contactList.push(newContact);
                 console.log(contactList);
-            }  
+            } 
         }
 
         const deleteContact = (chosenName) => {
@@ -81,26 +81,28 @@ class ContactManager {
         
         switch (showPromptChoice) {
             case "1":
-                showContactList()
+                showContactList();
             break;
             case "2":
-                addContact(getPromptValues())
+                addContact(getPromptValues());
             break;
             case "3":
                 let promptModify = prompt('Quel contact souhaitez-vous modifier ?');
-                modifyContact(promptModify)
+                modifyContact(promptModify);
             break;
             case "4":
                 let promptDelete = prompt('Quel contact souhaitez-vous supprimer ?');
-                deleteContact(promptDelete)
+                deleteContact(promptDelete);
             break;
             case "5":
                 alert("Au revoir !");
             break;
             default:
-                prompt("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
-                displayMenu()
-        } 
+                let falsePrompt = alert("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
+                if (falsePrompt != Number) {
+                    return this.displayMenu()
+                }
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-import { Contact, ContactManager } from "./contact.js";
+import { Contact, ContactManager, contactList } from "./contact.js";
 
 let clement = new Contact("Llobet", "Clément", "clement.llobet@jasparo.fr");
 let erwan = new Contact("Morio", "Erwan", "erwan.morio@jasparo.fr");
@@ -19,12 +19,17 @@ olivia.displayInfo();
 // Vérifier l'email. Enregistrer les informations et les passer en paramètre
 
 export const getPromptValues = () => {
-    let promptNameValue = prompt("Veuillez entrer votre nom.");
-    let promptSurnameValue = prompt("Veuillez entrer votre prénom.");
-    let promptEmailValue = prompt("Veuillez entrer votre email.");
 
-    let newContact = new Contact(promptNameValue, promptSurnameValue, promptEmailValue)
-    console.log(newContact);
+    let newContact = new Contact();
+
+    let promptNameValue = prompt("Veuillez entrer votre nom.");
+    newContact.name = newContact.checkName(promptNameValue);
+
+    let promptSurnameValue = prompt("Veuillez entrer votre prénom.");
+    newContact.surname = newContact.checkSurname(promptSurnameValue);
+    
+    let promptEmailValue = prompt("Veuillez entrer votre email.");
+    newContact.email = newContact.checkEmail(promptEmailValue);
 }
 
 let contactManager = new ContactManager();
