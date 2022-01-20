@@ -59,7 +59,8 @@ class ContactManager {
                 let newContact = new Contact(name, surname, email)
                 contactList.push(newContact);
                 console.log(contactList);
-            } 
+            }
+            return this.displayMenu();
         }
 
         const deleteContact = (chosenName) => {
@@ -67,6 +68,7 @@ class ContactManager {
             if (existingContactIndex > -1) {
                 this.contactList.splice(existingContactIndex, 1)
             }
+            return this.displayMenu();
         }
 
         const modifyContact = (newName, newSurname, newEmail) => {
@@ -77,6 +79,7 @@ class ContactManager {
                     newEmail = undefined ? null : contactList[i.email] = newEmail;
                 }
             }
+            return this.displayMenu();
         }
         
         switch (showPromptChoice) {
