@@ -10,19 +10,28 @@ erwan.displayInfo();
 fabrice.displayInfo();
 olivia.displayInfo();
 
-export const getPromptValues = () => {
+export const getAddContactPromptValues = () => {
 
     let newContact = new Contact();
 
     let promptNameValue = prompt("Veuillez entrer votre nom.");
-    newContact.name = newContact.checkName(promptNameValue);
+    let name = newContact.checkName(promptNameValue);
 
     let promptSurnameValue = prompt("Veuillez entrer votre prénom.");
-    newContact.surname = newContact.checkSurname(promptSurnameValue);
+    let surname = newContact.checkSurname(promptSurnameValue);
     
     let promptEmailValue = prompt("Veuillez entrer votre email.");
-    newContact.email = newContact.checkEmail(promptEmailValue);
+    let email = newContact.checkEmail(promptEmailValue);
+
+    return [newContact, name, surname, email]
 }
+
+export const getModifyContactPromptValues = () => {
+    let promptModifyName = prompt("Entrez le nom du contact que vous souhaitez modifier :");
+    return promptModifyName
+}
+
+
 
 let contactManager = new ContactManager();
 contactManager.displayMenu();

@@ -1,4 +1,4 @@
-import { getPromptValues } from './main.js'
+import { getAddContactPromptValues, getModifyContactPromptValues } from './main.js'
 
 class Contact {
     constructor(name, surname, email) {
@@ -18,7 +18,7 @@ class Contact {
         }
         return name
     }
-    
+
     checkSurname(surname) {
         if (surname.length <= 2) {
             let promptSurnameResponse = prompt("Votre prénom doit avoir plus de 2 caractères. Veuillez réessayer.");
@@ -26,7 +26,7 @@ class Contact {
         }
         return surname
     }
-    
+
     checkEmail(email) {
         const regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -44,7 +44,7 @@ class ContactManager {
     constructor(list) {
         this.contactList = list ? [...list] : [];
     }
-    
+
     displayMenu() {
         let showPromptChoice = prompt("Saisissez le numéro correspondant à votre choix : \n1 - Lister les contacts \n2 - Ajouter un nouveau contact \n3 - Modifier un contact existant \n4 - Supprimer un contact \n5 - Quitter le gestionnaire de contacts")
 
@@ -53,13 +53,18 @@ class ContactManager {
             return this.displayMenu()
         }
 
-        const addContact = (name, surname, email) => {
+        const addContact = ([object, name, surname, email]) => {
             const existingContact = this.contactList.find(contact => contact.email === email)
             if (!existingContact) {
-                let newContact = new Contact(name, surname, email)
-                contactList.push(newContact);
+
+                object.name = name;
+                object.surname = surname;
+                object.email = email;
+
+                contactList.push(object);
                 console.log(contactList);
             }
+            alert("Le contact : " + surname + " " + name + " " + email + " " + "a bien été ajouté.")
             return this.displayMenu();
         }
 
@@ -71,40 +76,63 @@ class ContactManager {
             return this.displayMenu();
         }
 
-        const modifyContact = (newName, newSurname, newEmail) => {
-            for (i = 0; i < contactList.length; i++) {
-                if (contactList[i.name] === newName) {
-                    contactList[i.name] = newName;
-                    newSurname = undefined ? null : contactList[i.surname] = newSurname;
-                    newEmail = undefined ? null : contactList[i.email] = newEmail;
+        const modifyContact = (nameToModify) => {
+            for (let i = 0; i < contactList.length; i++) {
+                if (contactList[i].name === nameToModify || contactList[i.surname] === nameToModify || contactList[i.email] === nameToModify) {
+
+                    let responseToPrompt = prompt(`Le contact à modifier est-il bien : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email} ?`, "Oui", "Non")
+                    return responseToPrompt
+                    
+                } else {
+                    alert("Désolé, ce contact n'existe pas dans notre base. Veuillez réessayer.")
+                    modifyContact(getModifyContactPromptValues());
                 }
+
+                let modifyName = prompt("Quel est le nouveau nom du contact ? (appuyez sur entrée si vous ne voulez pas le modifier).")
+                modifyName = "" ? 
+                    contactList[i].name = contactList[i].name
+                    :
+                    contactList[i].name = modifyName;
+
+                let modifySurname = prompt("Quel est le nouveau prénom du contact ? (appuyez sur entrée si vous ne voulez pas le modifier).")
+                modifySurname = "" ?
+                    contactList[i].surname = contactList[i].surname 
+                    : 
+                    contactList[i].surname = modifySurname;
+
+                let modifyEmail = prompt("Quel est le nouveau nom du contact ?")
+                modifyEmail = "" ?
+                    contactList[i].email = contactList[i].email
+                    :
+                    contactList[i].email = modifyEmail;
+
+                console.log(contactList[i]);
+
+                alert(`Merci ! Le contact a bien été modifié. Il a maintenant les coordonnées suivantes : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email}`)
             }
             return this.displayMenu();
         }
-        
+
         switch (showPromptChoice) {
             case "1":
                 showContactList();
-            break;
+                break;
             case "2":
-                addContact(getPromptValues());
-            break;
+                addContact(getAddContactPromptValues());
+                break;
             case "3":
-                let promptModify = prompt('Quel contact souhaitez-vous modifier ?');
-                modifyContact(promptModify);
-            break;
+                modifyContact(getModifyContactPromptValues());
+                break;
             case "4":
                 let promptDelete = prompt('Quel contact souhaitez-vous supprimer ?');
                 deleteContact(promptDelete);
-            break;
+                break;
             case "5":
                 alert("Au revoir !");
-            break;
+                break;
             default:
-                let falsePrompt = alert("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
-                if (falsePrompt != Number) {
-                    return this.displayMenu()
-                }
+                alert("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
+                return this.displayMenu()
         }
     }
 }
