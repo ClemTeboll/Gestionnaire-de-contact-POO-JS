@@ -31,6 +31,11 @@ export const getModifyContactPromptValues = () => {
     return promptModifyName
 }
 
+export const getDeleteContactPromptValues = () => {
+    let promptDeleteName = prompt("Entrez le nom du contact que vous souhaitez supprimer :");
+    return promptDeleteName
+}
+
 
 
 let contactManager = new ContactManager();

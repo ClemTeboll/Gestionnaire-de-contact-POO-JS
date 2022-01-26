@@ -1,4 +1,4 @@
-import { getAddContactPromptValues, getModifyContactPromptValues } from './main.js'
+import { getAddContactPromptValues, getModifyContactPromptValues, getDeleteContactPromptValues } from './main.js'
 
 class Contact {
     constructor(name, surname, email) {
@@ -39,6 +39,9 @@ class Contact {
 }
 
 export const contactList = [];
+let newContact = new Contact("Llobet", "Clément", "clem@mail.com")
+contactList.push(newContact);
+console.log(contactList);
 
 class ContactManager {
     constructor(list) {
@@ -68,47 +71,89 @@ class ContactManager {
             return this.displayMenu();
         }
 
-        const deleteContact = (chosenName) => {
-            const existingContactIndex = this.contactList.findIndex(contact => contact.name === chosenName)
-            if (existingContactIndex > -1) {
-                this.contactList.splice(existingContactIndex, 1)
+        const deleteContact = (chosenValue) => {
+            for (let i = 0; i < contactList.length; i++) {
+                if (contactList[i].name === chosenValue || contactList[i.surname] === chosenValue || contactList[i.email] === chosenValue) {
+                    
+                    let response = prompt(`Le contact à modifier est-il bien : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email} ? Entrez "Oui" ou "Non" dans la zone de texte ci-dessous :`);
+
+                    if (
+                        response === "Oui" ||
+                        response === "oui" ||
+                        response === "OUi" ||
+                        response === "OuI" ||
+                        response === "ouI" ||
+                        response === "oUI" ||
+                        response === "OUI"
+                    ) {
+                        const existingContactIndex = this.contactList.findIndex(contact => contact.name === chosenValue)
+                
+                        if (existingContactIndex > -1) {
+                            this.contactList.splice(existingContactIndex, 1)
+                        }
+                        alert("Le contact a bien été supprimé.")
+                        console.log(contactList);
+                        return this.displayMenu();
+                    }
+                } else {
+                    console.log("Non, ce n'est pas le bon contact");
+                    alert("Nous avons compris que ce'nest pas le bon contact Vous allez pouvoir entrer le contact recherché de nouveau.")
+                    modifyContact(getModifyContactPromptValues());
+                    break;
+                }
             }
-            return this.displayMenu();
         }
 
         const modifyContact = (nameToModify) => {
             for (let i = 0; i < contactList.length; i++) {
                 if (contactList[i].name === nameToModify || contactList[i.surname] === nameToModify || contactList[i.email] === nameToModify) {
 
-                    let responseToPrompt = prompt(`Le contact à modifier est-il bien : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email} ?`, "Oui", "Non")
-                    return responseToPrompt
-                    
+                    let response = prompt(`Le contact à modifier est-il bien : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email} ? Entrez "Oui" ou "Non" dans la zone de texte ci-dessous :`)
+
+                    if (
+                        response === "Oui" ||
+                        response === "oui" ||
+                        response === "OUi" ||
+                        response === "OuI" ||
+                        response === "ouI" ||
+                        response === "oUI" ||
+                        response === "OUI"
+                    ) {
+                        let modifyName = prompt(`Quel est le nouveau nom du contact ?`)
+                        let checkModifiedName = contactList[i].checkName(modifyName);
+                        if (checkModifiedName == null) {
+                            contactList[i].name = contactList[i].name;
+                        }
+                        contactList[i].name = checkModifiedName;
+
+                        let modifySurname = prompt(`Quel est le nouveau prénom du contact ?`);
+                        let checkModifiedSurname = contactList[i].checkSurname(modifySurname);
+                        if (checkModifiedSurname == null) {
+                            contactList[i].surname = contactList[i].surname;
+                        }
+                        contactList[i].surname = checkModifiedSurname;
+
+                        let modifyEmail = prompt(`Quel est le nouvel email du contact ?`)
+                        let checkModifiedEmail = contactList[i].checkEmail(modifyEmail);
+                        if (checkModifiedEmail ==  null) {
+                            contactList[i].email = contactList[i].email;
+                        }
+                        contactList[i].email = checkModifiedEmail;
+                        
+                        console.log(contactList[i]);
+
+                        alert(`Merci ! Le contact a bien été modifié. Il a maintenant les coordonnées suivantes : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email}`)
+                    } else {
+                        console.log("Non, ce n'est pas le bon contact");
+                        alert("Nous avons compris que ce n'est pas le bon contact.\n Vous allez pouvoir entrer le contact recherché de nouveau.")
+                        modifyContact(getModifyContactPromptValues());
+                        break;
+                    }
+
                 } else {
                     alert("Désolé, ce contact n'existe pas dans notre base. Veuillez réessayer.")
                     modifyContact(getModifyContactPromptValues());
                 }
-
-                let modifyName = prompt("Quel est le nouveau nom du contact ? (appuyez sur entrée si vous ne voulez pas le modifier).")
-                modifyName = "" ? 
-                    contactList[i].name = contactList[i].name
-                    :
-                    contactList[i].name = modifyName;
-
-                let modifySurname = prompt("Quel est le nouveau prénom du contact ? (appuyez sur entrée si vous ne voulez pas le modifier).")
-                modifySurname = "" ?
-                    contactList[i].surname = contactList[i].surname 
-                    : 
-                    contactList[i].surname = modifySurname;
-
-                let modifyEmail = prompt("Quel est le nouveau nom du contact ?")
-                modifyEmail = "" ?
-                    contactList[i].email = contactList[i].email
-                    :
-                    contactList[i].email = modifyEmail;
-
-                console.log(contactList[i]);
-
-                alert(`Merci ! Le contact a bien été modifié. Il a maintenant les coordonnées suivantes : ${contactList[i].surname} ${contactList[i].name} ${contactList[i].email}`)
             }
             return this.displayMenu();
         }
@@ -124,8 +169,7 @@ class ContactManager {
                 modifyContact(getModifyContactPromptValues());
                 break;
             case "4":
-                let promptDelete = prompt('Quel contact souhaitez-vous supprimer ?');
-                deleteContact(promptDelete);
+                deleteContact(getDeleteContactPromptValues());
                 break;
             case "5":
                 alert("Au revoir !");
