@@ -34,6 +34,6 @@ class Contact {
         }
         return email
     }
-}
+} 
 
 export { Contact }

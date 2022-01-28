@@ -37,9 +37,7 @@ export const getDeleteContactPromptValues = () => {
     return promptDeleteName
 }
 
-const contacts = [];
-let newContact = new Contact("Llobet", "Clément", "clem@mail.com")
-contacts.push(newContact);
+const contacts = [localStorage.getItem("object")];
 console.log(contacts);
 
 let contactManager = new ContactManager(contacts);

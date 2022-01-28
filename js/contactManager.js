@@ -2,7 +2,7 @@ import { getAddContactPromptValues, getModifyContactPromptValues, getDeleteConta
 
 class ContactManager {
     constructor(list) {
-        this.contactList = list ? [...list] : [];
+        this.contactList = list ? [Object.entries(list)] : [];
     }
 
     displayMenu() {
@@ -14,6 +14,7 @@ class ContactManager {
         }
 
         const addContact = ([object, name, surname, email]) => {
+            console.log(this.contactList);
             const existingContact = this.contactList.find(contact => contact.email === email)
             if (!existingContact) {
 
@@ -23,10 +24,13 @@ class ContactManager {
 
                 this.contactList.push(object);
                 console.log(this.contactList);
+                localStorage.setItem(`${object.name}||${object.surname}||${object.email}`, JSON.stringify(object));
+
                 alert("Le contact : " + surname + " " + name + " " + email + " " + "a bien été ajouté.")
             } else {
                 alert("Le contact existe déjà.")
             }
+            
             return this.displayMenu();
         }
 
@@ -44,11 +48,12 @@ class ContactManager {
                         }
                         alert("Le contact a bien été supprimé.")
                         console.log(this.contactList);
+                        localStorage.setItem("object", JSON.stringify(this.contactList));
                         return this.displayMenu();
                     }
                 } else {
                     console.log("Non, ce n'est pas le bon contact");
-                    alert("Nous avons compris que ce n'est pas le bon contact.\n     Vous allez pouvoir entrer le contact recherché de nouveau.")
+                    alert("Nous avons compris que ce n'est pas le bon contact. \nVous allez pouvoir entrer le contact recherché de nouveau.")
                     modifyContact(getModifyContactPromptValues());
                     break;
                 }
@@ -122,7 +127,7 @@ class ContactManager {
                 alert("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
                 return this.displayMenu()
         }
-    }
+    }    
 }
 
 export { ContactManager }
