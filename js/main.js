@@ -1,4 +1,5 @@
-import { Contact, ContactManager, contactList } from "./contact.js";
+import { Contact } from "./contact.js";
+import { ContactManager } from "./contactManager.js"
 
 let clement = new Contact("Llobet", "Clément", "clement.llobet@jasparo.fr");
 let erwan = new Contact("Morio", "Erwan", "erwan.morio@jasparo.fr");
@@ -36,7 +37,10 @@ export const getDeleteContactPromptValues = () => {
     return promptDeleteName
 }
 
+const contacts = [];
+let newContact = new Contact("Llobet", "Clément", "clem@mail.com")
+contacts.push(newContact);
+console.log(contacts);
 
-
-let contactManager = new ContactManager();
+let contactManager = new ContactManager(contacts);
 contactManager.displayMenu();
