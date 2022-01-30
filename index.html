@@ -5,34 +5,38 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
-        <script src="https://kit.fontawesome.com/1e95ab4952.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
-        <title>Titre</title>
+        <title>Gestionnaire de contact</title>
     </head>
     <body>
-        <header>
-            <nav>
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </nav>
+        <header class="blue">
+            <h1>Gestionnaire de contacts</h1>
         </header>
         <main>
-            <section>
-                
+            <section id="my-contacts">
+                <h2>Mes contacts</h2>
+                <div id="contact-list"></div>
             </section>
-            <aside>
-                
-            </aside>
+            <section id="contact-card">
+                <div id="contact-card-title">
+                    <h2>Fiche contact</h2>
+                    <button class="button green">Nouveau</button>
+                </div>
+                <div id="contact-informations">
+                    <div id="contact-infos">
+                        <p><span class="infos">Nom : </span><span class="infos__name"></span></p>
+                        <p><span class="infos">Prénom : </span><span class="infos__surname"></span></p>
+                        <p><span class="infos">Email : </span><span class="infos__email"></span></p>
+                    </div>
+                    <div id="buttons">
+                        <button class="button blue">Modifier</button>
+                        <button class="button red">Supprimer</button>
+                    </div>
+                </div>
+            </section>
         </main>
         <footer>
            
         </footer>
-        <script type="module" src="./js/main.js"></script>
+        <!-- <script type="module" src="./js/main.js"></script> -->
     </body>
 </html>

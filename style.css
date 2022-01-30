@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+.blue {
+    background-color: #516CDE;
+}
+
+.red {
+    background-color: #DE5151;
+}
+
+.green {
+    background-color: #327B32;
+}
+
+header {
+    width: 100%;
+    height: 81px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+header::before {
+    height: 0px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+section {
+    width: 50%;
+    margin: 2em;
+}
+
+#contact-card-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#contact-informations {
+    margin-top: 1em;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2%;
+}
+
+#contact-informations span.infos {
+    font-weight: bold;
+}
+
+#contact-infos {
+    padding-top: 1em;
+}
+
+#contact-infos p {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+#buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30%;
+}
+
+button {
+    color: #FFFFFF;
+    height: 40px;
+    width: 200px;
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}

@@ -37,8 +37,14 @@ export const getDeleteContactPromptValues = () => {
     return promptDeleteName
 }
 
-const contacts = [localStorage.getItem("object")];
-console.log(contacts);
+export const returnAllLocalStorageKeys = () => {
+    let contacts = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        let objectToAdd = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        contacts.push(objectToAdd);
+    }
+    return contacts
+}
 
-let contactManager = new ContactManager(contacts);
+let contactManager = new ContactManager(returnAllLocalStorageKeys());
 contactManager.displayMenu();
