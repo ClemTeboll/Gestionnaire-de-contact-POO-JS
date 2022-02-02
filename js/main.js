@@ -34,7 +34,6 @@ export const getModifyContactPromptValues = () => {
 
 export const getDeleteContactPromptValues = () => {
     let contactName = document.querySelector(".infos__name");
-    console.log(contactName.textContent);
     return contactName.textContent
 }
 
@@ -52,7 +51,6 @@ let contactManager = new ContactManager(returnAllLocalStorageKeys());
 contactManager.showContactList();
 
 let allLiContacts = document.querySelectorAll(".contact-name-and-surname");
-console.log(allLiContacts);
 
 allLiContacts.forEach((contact) => {
     contact.addEventListener('click', () => {

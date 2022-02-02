@@ -47,7 +47,6 @@ class ContactManager extends Contact {
         }
 
         deleteContact(chosenValue) {
-            console.log(this.contactList);
             for (let i = 0; i < this.contactList.length; i++) {
                 if (this.contactList[i].name === chosenValue || this.contactList[i.surname] === chosenValue || this.contactList[i.email] === chosenValue) {
                     
