@@ -7,18 +7,27 @@ class ContactManager extends Contact {
         this.contactList = list ? list : [];
     }
 
-    displayMenu() {
-        let showPromptChoice = prompt("Saisissez le numéro correspondant à votre choix : \n1 - Lister les contacts \n2 - Ajouter un nouveau contact \n3 - Modifier un contact existant \n4 - Supprimer un contact \n5 - Quitter le gestionnaire de contacts");
+    // displayMenu() {
+    //     let showPromptChoice = prompt("Saisissez le numéro correspondant à votre choix : \n1 - Lister les contacts \n2 - Ajouter un nouveau contact \n3 - Modifier un contact existant \n4 - Supprimer un contact \n5 - Quitter le gestionnaire de contacts");
 
-        const showContactList = () => {
+        showContactList() {
+
+            let showListButton = document.getElementById("contact-list");
+
             for (let i = 0; i < this.contactList.length; i++) {
-                console.log(this.contactList[i]);
-            }
-            alert("La liste est affichée.")
-            return this.displayMenu()
+
+                function createLi(surname, name) {
+                    let li = document.createElement('li');
+                    li.textContent = `${surname} ${name}`;
+                    li.classList.add("contact-name-and-surname");
+                    return li
+                }
+
+                showListButton.appendChild(createLi(this.contactList[i].surname, this.contactList[i].name))
+            }            
         }
 
-        const addContact = ([object, name, surname, email]) => {
+        addContact([object, name, surname, email]) {
 
             const existingContact = this.contactList.find(contact => contact.email === email)
             if (!existingContact) {
@@ -27,7 +36,7 @@ class ContactManager extends Contact {
                 object.surname = surname;
                 object.email = email;
 
-                localStorage.setItem(`${object.name}||${object.surname}||${object.email}`, JSON.stringify(object));
+                localStorage.setItem(`${object.surname} ${object.name}`, JSON.stringify(object));
 
                 alert("Le contact : " + surname + " " + name + " " + email + " " + "a bien été ajouté.")
             } else {
@@ -37,31 +46,28 @@ class ContactManager extends Contact {
             window.location.reload()
         }
 
-        const deleteContact = (chosenValue) => {
-
+        deleteContact(chosenValue) {
+            console.log(this.contactList);
             for (let i = 0; i < this.contactList.length; i++) {
-
                 if (this.contactList[i].name === chosenValue || this.contactList[i.surname] === chosenValue || this.contactList[i.email] === chosenValue) {
                     
-                    let response = prompt(`Le contact à modifier est-il bien : ${this.contactList[i].surname} ${this.contactList[i].name} ${this.contactList[i].email} ? Entrez "Oui" ou "Non" dans la zone de texte ci-dessous :`);
+                    let response = prompt(`Voulez-vous vraiment supprimer le contact : ${this.contactList[i].surname} ${this.contactList[i].name} ${this.contactList[i].email} ? Entrez "Oui" ou "Non" dans la zone de texte ci-dessous :`);
 
                     if (response.toLowerCase() === "oui") {
                         const existingContactIndex = this.contactList.findIndex(contact => contact.name === chosenValue)
-                        localStorage.removeItem(`${this.contactList[i].name}||${this.contactList[i].surname}||${this.contactList[i].email}`);
+                        localStorage.removeItem(`${this.contactList[i].surname} ${this.contactList[i].name}`);
                         
                         alert("Le contact a bien été supprimé.")
-
                         window.location.reload()
+                    } else {
+                        alert("Le contact n'a pas été modifié.")
+                        break;
                     }
-                } else {
-                    alert("Nous avons compris que ce n'est pas le bon contact. \nVous allez pouvoir entrer le contact recherché de nouveau.")
-                    modifyContact(getModifyContactPromptValues());
-                    break;
-                }
+                } 
             }
         }
 
-        const modifyContact = (nameToModify) => {
+        modifyContact(nameToModify) {
 
             for (let i = 0; i < this.contactList.length; i++) {
                 if (this.contactList[i].name === nameToModify || this.contactList[i].surname === nameToModify || this.contactList[i].email === nameToModify) {
@@ -70,7 +76,7 @@ class ContactManager extends Contact {
 
                     if (response.toLowerCase() === "oui") {
 
-                        let deleteKeyInLocalStorage = `${this.contactList[i].name}||${this.contactList[i].surname}||${this.contactList[i].email}`;
+                        let deleteKeyInLocalStorage = `${this.contactList[i].surname} ${this.contactList[i].name}`;
                         
                         let modifyName = prompt(`Quel est le nouveau nom du contact ?`)
                         let checkModifiedName = this.checkName(modifyName);
@@ -97,7 +103,7 @@ class ContactManager extends Contact {
                         }
                         
                         localStorage.removeItem(deleteKeyInLocalStorage);
-                        localStorage.setItem(`${this.contactList[i].name}||${this.contactList[i].surname}||${this.contactList[i].email}`, JSON.stringify(this.contactList[i]));
+                        localStorage.setItem(`${this.contactList[i].surname} ${this.contactList[i].name}`, JSON.stringify(this.contactList[i]));
                         alert(`Merci ! Le contact a bien été modifié. Il a maintenant les coordonnées suivantes : ${this.contactList[i].surname} ${this.contactList[i].name} ${this.contactList[i].email}`)
                         window.location.reload()      
                     } else {
@@ -111,28 +117,6 @@ class ContactManager extends Contact {
             alert("Désolé, ce contact n'existe pas dans notre base. Veuillez réessayer.")
             modifyContact(getModifyContactPromptValues());
         }
-
-        switch (showPromptChoice) {
-            case "1":
-                showContactList();
-                break;
-            case "2":
-                addContact(getAddContactPromptValues());
-                break;
-            case "3":
-                modifyContact(getModifyContactPromptValues());
-                break;
-            case "4":
-                deleteContact(getDeleteContactPromptValues());
-                break;
-            case "5":
-                alert("Au revoir !");
-                break;
-            default:
-                alert("Cette commande n'est pas reconnue. Choisissez une instruction entre 1 et 5");
-                return this.displayMenu()
-        }
-    }  
 }
 
 export { ContactManager }

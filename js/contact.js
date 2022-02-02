@@ -7,6 +7,7 @@ class Contact {
 
     displayInfo() {
         console.log("Nom : " + this.name + " || Prénom : " + this.surname + " || email : " + this.email);
+        return [this.name, this.surname, this.email]
     }
 
     checkName(name) {

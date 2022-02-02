@@ -8,18 +8,20 @@
         <title>Gestionnaire de contact</title>
     </head>
     <body>
-        <header class="blue">
+        <header>
             <h1>Gestionnaire de contacts</h1>
         </header>
         <main>
             <section id="my-contacts">
                 <h2>Mes contacts</h2>
-                <div id="contact-list"></div>
+                <ul id="contact-list">
+                    <!-- <p class="contact-name-and-surname">John Doe</p> -->
+                </ul>
             </section>
             <section id="contact-card">
                 <div id="contact-card-title">
                     <h2>Fiche contact</h2>
-                    <button class="button green">Nouveau</button>
+                    <button class="button__green">Nouveau</button>
                 </div>
                 <div id="contact-informations">
                     <div id="contact-infos">
@@ -28,8 +30,8 @@
                         <p><span class="infos">Email : </span><span class="infos__email"></span></p>
                     </div>
                     <div id="buttons">
-                        <button class="button blue">Modifier</button>
-                        <button class="button red">Supprimer</button>
+                        <button class="button__blue">Modifier</button>
+                        <button class="button__red">Supprimer</button>
                     </div>
                 </div>
             </section>
@@ -37,6 +39,6 @@
         <footer>
            
         </footer>
-        <!-- <script type="module" src="./js/main.js"></script> -->
+        <script type="module" src="./js/main.js"></script>
     </body>
 </html>

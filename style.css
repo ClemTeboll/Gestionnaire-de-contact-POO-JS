@@ -7,18 +7,6 @@ body {
     box-sizing: border-box;
 }
 
-.blue {
-    background-color: #516CDE;
-}
-
-.red {
-    background-color: #DE5151;
-}
-
-.green {
-    background-color: #327B32;
-}
-
 header {
     width: 100%;
     height: 81px;
@@ -26,6 +14,7 @@ header {
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
+    background-color: #516CDE;
 }
 
 header::before {
@@ -48,6 +37,34 @@ section {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+#contact-list {
+    margin-top: 1em;
+}
+
+.contact-name-and-surname {
+    font-size: 1.2em;
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 2%;
+    list-style-type: none;
+    margin-bottom: 1em;
+}
+.contact-name-and-surname:hover {
+    animation: background-hover 500ms forwards;
+    cursor: pointer;
+}
+
+@keyframes background-hover {
+    0% {
+        background-color: #FFFFFF;
+
+    }
+    100% {
+        background-color: #516CDE;
+        color: #FFFFFF;
+    }
 }
 
 #contact-informations {
@@ -87,6 +104,18 @@ button {
     font-size: 1.2em;
     font-weight: bold;
     cursor: pointer;
+}
+
+.button__red {
+    background-color: #DE5151;
+} 
+
+.button__blue {
+    background-color: #516CDE;
+}
+
+.button__green {
+    background-color: #327B32;
 }
 
 button:hover {

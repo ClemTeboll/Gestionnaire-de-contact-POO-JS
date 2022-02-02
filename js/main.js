@@ -28,13 +28,14 @@ export const getAddContactPromptValues = () => {
 }
 
 export const getModifyContactPromptValues = () => {
-    let promptModifyName = prompt("Entrez le nom du contact que vous souhaitez modifier :");
-    return promptModifyName
+    let contactName = document.querySelector(".infos__name");
+    return contactName.textContent
 }
 
 export const getDeleteContactPromptValues = () => {
-    let promptDeleteName = prompt("Entrez le nom du contact que vous souhaitez supprimer :");
-    return promptDeleteName
+    let contactName = document.querySelector(".infos__name");
+    console.log(contactName.textContent);
+    return contactName.textContent
 }
 
 export const returnAllLocalStorageKeys = () => {
@@ -47,4 +48,47 @@ export const returnAllLocalStorageKeys = () => {
 }
 
 let contactManager = new ContactManager(returnAllLocalStorageKeys());
-contactManager.displayMenu();
+
+contactManager.showContactList();
+
+let allLiContacts = document.querySelectorAll(".contact-name-and-surname");
+console.log(allLiContacts);
+
+allLiContacts.forEach((contact) => {
+    contact.addEventListener('click', () => {
+
+        let contactName = document.querySelector(".infos__name");
+        let contactSurname = document.querySelector(".infos__surname");
+        let contactEmail = document.querySelector(".infos__email");
+
+        let localStorageKeys = returnAllLocalStorageKeys();
+        
+        for (let i = 0; i < localStorageKeys.length; i++) {
+            
+            if (`${localStorageKeys[i].surname} ${localStorageKeys[i].name}` === contact.textContent) {
+                contactName.textContent = `${localStorageKeys[i].name}`;
+                contactSurname.textContent = `${localStorageKeys[i].surname}`;
+                contactEmail.textContent = `${localStorageKeys[i].email}`;
+                break;
+            }
+        }
+    })
+})
+
+
+let addButton = document.querySelector(".button__green");
+addButton.addEventListener('click', () => {
+    contactManager.addContact(getAddContactPromptValues());
+})
+
+
+let modifyButton = document.querySelector(".button__blue");
+modifyButton.addEventListener('click', () => {
+    contactManager.modifyContact(getModifyContactPromptValues());
+})
+
+
+let deleteButton = document.querySelector(".button__red");
+deleteButton.addEventListener('click', () => {
+    contactManager.deleteContact(getDeleteContactPromptValues());
+})
